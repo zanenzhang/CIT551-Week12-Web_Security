@@ -1,1 +1,3 @@
-# CIT551-Week12-Web Attacks
+# CIT551
+Web Security Assignment
+SQL Injection, CSRF, XSS
